@@ -1,19 +1,29 @@
-name: Run Tests
-on: push
+name: Dev To Post
+on: pull_request
 
 jobs:
-  job_1_run_tests:
-    name: Running tests in every push
-    runs-on: ubuntu-lastest
+  build:
+    
+    name: Build, get deps, and run unit tests
+    runs-on: ubuntu-latest
+
     steps:
-    - name: Setup Elixir Lang
+    - uses: actions/checkout@v2
+    - name: Set up Elixir
       uses: actions/setup-elixir@v1
       with:
-        elixir-version: '1.10.3'
-        otp-version: '22.3'
-    - name: Running tests
+        elixir-version: '1.10.3' # Define the elixir version [required]
+        otp-version: '22.3' # Define the OTP version [required]
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    - name: Running Tests
       run: |
         cd devto_api
+        export DEVTO_API_KEY="${{ secrets.DEVTO_API_KEY }}"
         mix deps.get
+        echo "Deps installed.."
         mix test
-        echo " ===== Terminé :) ===== "
