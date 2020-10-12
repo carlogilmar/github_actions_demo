@@ -1,0 +1,18 @@
+name: Run Tests
+on: push
+
+jobs:
+  job_1_run_tests:
+    name: Running tests in every push
+    runs-on: ubuntu-lastest
+    steps:
+    - name: Setup Elixir Lang
+      users: actions/setup-elixir@v1
+      with:
+        elixir-version: '1.10.3'
+        otp-version: '22.3'
+      run: |
+        cd devto_api
+        mix deps.get
+        mix test
+        echo " ===== Terminé :) ===== "
