@@ -1,10 +1,10 @@
-name: Dev To Post
+name: Running Tests
 on: push
 
 jobs:
-  job_1_running_tests:
-    
-    name: Get deps and run unit tests
+  build:
+
+    name: Build, get deps, and run unit tests
     runs-on: ubuntu-latest
 
     steps:
@@ -19,10 +19,10 @@ jobs:
         path: deps
         key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
         restore-keys: ${{ runner.os }}-mix-
-    - name: Running Tests
+    - name: "Creating Generator"
       run: |
         cd devto_api
-        export DEVTO_API_KEY="${{ secrets.DEVTO_API_KEY }}"
         mix deps.get
         echo "Deps installed.."
         mix test
+        echo "Mix test"
