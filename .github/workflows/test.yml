@@ -2,24 +2,17 @@ name: Dev To Post
 on: push
 
 jobs:
-  build:
+  job_1_running_tests:
     
-    name: Build, get deps, and run unit tests
+    name: Get deps and run unit tests
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
     - name: Set up Elixir
       uses: actions/setup-elixir@v1
       with:
         elixir-version: '1.10.3' # Define the elixir version [required]
         otp-version: '22.3' # Define the OTP version [required]
-    - name: Restore dependencies cache
-      uses: actions/cache@v2
-      with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
     - name: Running Tests
       run: |
         cd devto_api
