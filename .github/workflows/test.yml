@@ -4,12 +4,11 @@ on: push
 jobs:
   build:
     
-    name: Build, get deps, and run unit tests
+    name: Get deps and run unit tests
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Elixir
+    - name: Set up Elixir Version 
       uses: actions/setup-elixir@v1
       with:
         elixir-version: '1.10.3' # Define the elixir version [required]
@@ -23,7 +22,5 @@ jobs:
     - name: Running Tests
       run: |
         cd devto_api
-        export DEVTO_API_KEY="${{ secrets.DEVTO_API_KEY }}"
         mix deps.get
-        echo "Deps installed.."
         mix test
