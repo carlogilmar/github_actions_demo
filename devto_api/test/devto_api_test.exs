@@ -3,6 +3,6 @@ defmodule DevtoApiTest do
   doctest DevtoApi
 
   test "greets the world" do
-    assert 1 == 1+2
+    assert 3 == 1+2
   end
 end
