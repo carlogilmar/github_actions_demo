@@ -7,10 +7,11 @@ jobs:
     runs-on: ubuntu-lastest
     steps:
     - name: Setup Elixir Lang
-      users: actions/setup-elixir@v1
+      uses: actions/setup-elixir@v1
       with:
         elixir-version: '1.10.3'
         otp-version: '22.3'
+    - name: Running tests
       run: |
         cd devto_api
         mix deps.get
