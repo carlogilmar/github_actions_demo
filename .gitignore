@@ -1,0 +1,8 @@
+devto_api/_build/
+devto_api/cover/
+devto_api/deps/
+devto_api/doc/
+devto_api/.fetch
+devto_api/erl_crash.dump
+devto_api/*.ez
+devto_api/devto_api-*.tar
