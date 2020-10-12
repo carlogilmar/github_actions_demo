@@ -28,3 +28,6 @@ jobs:
         cd devto_api
         mix deps.get
         mix test
+        # Secret
+        export DEVTO_API_KEY="${{ secrets.DEVTO_API_KEY }}"
+        mix post
