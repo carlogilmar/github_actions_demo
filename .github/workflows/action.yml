@@ -1,0 +1,10 @@
+name: Print a hello world in every push!
+on: push
+
+jobs:
+  say_hello:
+    name: Print a hello world in every push!
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Hello from GitHub  Actions @carlogilmar!"
