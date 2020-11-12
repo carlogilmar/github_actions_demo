@@ -2,9 +2,29 @@ name: Print a hello world in every push!
 on: push
 
 jobs:
-  say_hello:
-    name: Print a hello world in every push!
+  build:
+    
+    name: Get deps and run unit tests
     runs-on: ubuntu-latest
+
     steps:
-    - run: |
-        echo "Hello from GitHub  Actions @carlogilmar!"
+    # Checkout my project into the GitHub Runner
+    - uses: actions/checkout@v2	
+    # Setup my Elixir Version
+    - name: Set up Elixir Version 
+      uses: actions/setup-elixir@v1
+      with:
+        elixir-version: '1.10.3' # Define the elixir version [required]
+        otp-version: '22.3' # Define the OTP version [required]
+    - name: Restore dependencies cache
+      uses: actions/cache@v2
+      with:
+        path: deps
+        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+        restore-keys: ${{ runner.os }}-mix-
+    # Running tests
+    - name: Running Tests
+      run: |
+        cd devto_api
+        mix deps.get
+        mix test
